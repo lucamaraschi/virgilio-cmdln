@@ -1,0 +1,27 @@
+{
+  "name": "virgilio-cmdln",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lucamaraschi/virgilio-cmdln.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luca Maraschi",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://github.com/lucamaraschi/virgilio-cmdln/raw/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "commander": "^2.8.1",
+    "virgilio": "^0.12.5"
+  }
+}

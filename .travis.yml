@@ -6,7 +6,5 @@ deploy:
   email: luca.maraschi@gmail.com
   api_key:
     secure: GkL/js0qhPX0XRm0e0/Fwqs1hQA8oDOxkAtGynsGiZaCFn4Sp/4O2uDzD9MpLE0sTLTf/U7zhfGfNQXmOcSvXsFEfPCAokvm7qJtIqdnQuolymfOYKCXUH6wBOPehZ+CzO0GFUDFHJx5rttvhwSJ7j48PNTPkavWiwnlZhVbYNh+9kCvE95ltGSV0K9/lNFvzVGfRH3f/VBVGnLK0tLM2lSlB8PFyeAlJm0AJCItnkrKIeDPq/Hg6eoIMVfZXeYYG7TSMNuRnvhwbI3d+ZjyTQ+f87qQSSwEX5ZkM0CLKMcfMegySRXmGxT8K00KeqbeMZqdYszah7tw8AAvzoUHbhLqkKhqdyOh4nWU4GQhVQ55i6Vk9e0dFK+NtxPZa3ONOtMaUVmmPimwfybkZYZZwJJSr3q7uNuzylKxn0/oGks2d/4fIkW1+4Os+yRD+ldG6zjBsq6CrIbupgD3yGllfTkW3YJjcBArD0GasyNpngZ6E/fYru/4Sr1n3Tf4mNhoKTGlbQ6IQwgvm6yXOEpW61grcD25fydUuH67RBdgsjCGWrD65+jg3HHmV8+8yKDwpc3kiJy/DGeKSoIKeEcovt7+ZYnpOlHDEs22Veq1is/pP4kfBXcXaoMYYZy9srA2wTUyWGOOuXAVqMUZwwUX9oR2YXrArAlRfMAIT4Ftem4=
-  on:
-    repo: lucamaraschi/virgilio-cmdln
-true:
+on:
   branch: master

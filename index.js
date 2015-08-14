@@ -1,43 +1,67 @@
 module.exports = function virgilioCmdln(options) {
   var virgilio = this;
-  var Promise = virgilio.Promise;
-  var program = require('commander');
+  var dashdash = require('dashdash');
 
   var cmdln = virgilio.namespace$('cmdln');
 
-  cmdln.cmdify = function(action, commandString) {
-    var currentCommand = program.command(commandString);
-    return new CommandChain(currentCommand, action);
-  };
+  var commandChainMap = {};
 
-
-  function CommandChain(command, action) {
-    var _this = this;
-    this.arg = function arg(arg, description, modifier) {
-      command.option(arg, description, modifier);
-      return _this;
-    }
-
-    this.handler = function handler(fn) {
-      command.action(function() {
-        var options = this.opts();
-        fn.call(action.namespace$, options);
-        return _this;
-      });
-    }
-  };
+  cmdln.cmdify = function(action, commandstring) {
+    var commandString = commandstring || action.name;
+    var commandChain = new CommandChain(commandString, action);
+    commandChainMap[commandString] = commandChain;
+    return commandChain;
+  }
 
   virgilio.extend$('_createAction$', function _createAction$(name, fn) {
     var action = _createAction$.super$.call(this, name, fn);
     action.cmdify = cmdln.cmdify.bind(action.namespace$, action);
-    return action;
   });
 
-  cmdln.defineAction$('run', function() {
-    program.on('*', program.help);
-    if (process.argv.length < 3) {
-      return program.help();
+  cmdln.main = function main() {
+    var argv = process.argv;
+    //search for the command or show help
+    if (argv.length < 3) {
+      // show the program help
+
     }
-    program.parse(process.argv);
-  });
+
+    // search for the related action in the namespace
+    var command = argv[2];
+    var commandChain = this._lookupForCommandChain(command);
+    commandChain.execute.apply(this, argv.slice(3, argv.length));
+  };
+
+  cmdln._lookupForCommandChain = function _lookupForCommandChain(commandString) {
+    return commandChainMap[commandString]; // return commandNotFoundError
+  };
+
+  function CommandChain(commandstring, action) {
+    var self = this;
+    this.commandOptions = [];
+
+    this.arg = function arg(names, help, type) {
+      self.commandOptions.push({
+        names: names,
+        help: help,
+        type: type
+      });
+
+      return self;
+    }
+
+    this.handler = function handler(fn) {
+      self.command = function(args) {
+        fn.call(action.namespace$, args);
+      }
+      return self;
+    }
+
+    this.execute = function execute() {
+      //parse argv with dashdash parse using options
+      var args = dashdash.createParser({options: self.commandOptions})
+        .parse(arguments);
+      return self.command(args);
+    }
+  };
 };

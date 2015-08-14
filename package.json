@@ -21,7 +21,7 @@
     }
   ],
   "dependencies": {
-    "commander": "^2.8.1",
+    "dashdash": "^1.10.0",
     "virgilio": "^0.12.5"
   }
 }

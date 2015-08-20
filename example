@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+var virgilio = require('virgilio')({
+  logger: {
+    level: 'error'
+  }
+});
+var cmdln = require('./');
+
+virgilio.loadModule$(cmdln);
+
+virgilio.defineAction$('test', function(num) {
+  return num + 1;
+});
+
+var customAction = virgilio.test;
+
+customAction.cmdify()
+  .arg('-n, --number <number>', 'the number', parseInt)
+  .handler(function(args) {
+    this.execute$(args.n)
+      .then(function (result) {
+        console.log('Result: ' + result);
+      })
+      .catch(function (err) {
+        console.log(err.stack);
+      });
+  });
+
+virgilio.cmdln.main();

@@ -33,7 +33,10 @@ module.exports = function virgilioCmdln(options) {
     return action;
   });
 
-  cmdln.defineAction$('run', function() {
+  cmdln.defineAction$('run', function(description) {
+    if (description) {
+        program.description(description);
+    }
     program.on('*', program.help);
     if (process.argv.length < 3) {
       return program.help();
